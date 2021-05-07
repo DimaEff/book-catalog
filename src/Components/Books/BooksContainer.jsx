@@ -6,7 +6,7 @@ import Books from "./Books";
 import {addBook, deleteBook} from "../../Redux/books_actions";
 
 
-const ToDosContainer = ({books, addBook, deleteBook}) => {
+const BooksContainer = ({books, addBook, deleteBook}) => {
     return <Books books={books} addBook={addBook} deleteBook={deleteBook}/>
 }
 
@@ -17,4 +17,4 @@ const mapStateToProps = (state) => ({
 export default compose(
     firestoreConnect(() => ['books']),
     connect(mapStateToProps, {addBook, deleteBook}),
-)(ToDosContainer);
+)(BooksContainer);

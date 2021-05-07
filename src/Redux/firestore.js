@@ -7,6 +7,8 @@ import thunk from "redux-thunk";
 import {firebaseReducer, getFirebase} from 'react-redux-firebase';
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore';
 
+import authReducer from "./auth_reducer";
+
 
 const rrfConfig = {
     userProfile: 'users',
@@ -27,6 +29,7 @@ export const db = firebase.firestore();
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
+    auth: authReducer,
 });
 
 const initialState = {};
