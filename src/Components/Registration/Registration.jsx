@@ -16,6 +16,7 @@ const Registration = ({registerUser}) => {
 
     return (
         <div>
+            <h3>Registration</h3>
             <form onSubmit={handleSubmit(registerNewUser)}>
                 <input type="text" {...register('email')}/>
                 <input type="text" {...register('password')}/>

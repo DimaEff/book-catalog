@@ -6,7 +6,9 @@ import {connect} from "react-redux";
 const UserProfile = ({user}) => {
     return (
         <div>
-            {user ? <div>{user.username}</div>: <div>Not user</div>}
+            <h3>
+                {user ? <div>{user.username}</div>: <div>Not user</div>}
+            </h3>
         </div>
     );
 };

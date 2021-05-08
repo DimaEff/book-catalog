@@ -16,6 +16,7 @@ const Login = ({loginUser, logoutUser}) => {
 
     return (
         <div>
+            <h3>Login</h3>
             <form onSubmit={handleSubmit(login)}>
                 <input type="text" {...register('email')}/>
                 <input type="text" {...register('password')}/>

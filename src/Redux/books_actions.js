@@ -1,15 +1,15 @@
 import firestoreCollections from "../consts/firestore_collections";
 
 
-export const addBook = (book) => async (dispatch) => {
-    const testBook = await firestoreCollections.books()
-        .where('isbn', '==', book.isbn)
+export const addEditBook = (book, bookId=undefined) => async (dispatch) => {
+    const testBook = !bookId && await firestoreCollections.books()
+        .where('isbn', '==', book.isbn || 'test')
         .get()
         .docs?.[0];
 
-    testBook || firestoreCollections.books().add({...book});
+     testBook || firestoreCollections.books().doc(bookId).set({...book});
 }
 
-export const deleteBook = (bookId) => async (dispatch) => {
-    await firestoreCollections.books().doc(bookId).delete();
+export const deleteBook = (bookId) =>  (dispatch) => {
+     firestoreCollections.books().doc(bookId).delete();
 }

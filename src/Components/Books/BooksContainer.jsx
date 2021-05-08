@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 
 import Books from "./Books";
-import {addBook, deleteBook} from "../../Redux/books_actions";
+import {addEditBook, deleteBook} from "../../Redux/books_actions";
 
 
-const BooksContainer = ({books, addBook, deleteBook}) => {
-    return <Books books={books} addBook={addBook} deleteBook={deleteBook}/>
+const BooksContainer = ({books, addEditBook, deleteBook}) => {
+    return <Books books={books} addEditBook={addEditBook} deleteBook={deleteBook}/>
 }
 
 const mapStateToProps = (state) => ({
@@ -16,5 +16,5 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     firestoreConnect(() => ['books']),
-    connect(mapStateToProps, {addBook, deleteBook}),
+    connect(mapStateToProps, {addEditBook, deleteBook}),
 )(BooksContainer);

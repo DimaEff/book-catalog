@@ -1,7 +1,7 @@
 import React from 'react';
 import Book from "./Book";
 
-const Books = ({books, addBook, deleteBook}) => {
+const Books = ({books, addEditBook, deleteBook}) => {
     const displayBooks = books &&
         books.map(book => <Book key={book.id} deleteBook={deleteBook} {...book}/>);
 
@@ -15,7 +15,7 @@ const Books = ({books, addBook, deleteBook}) => {
     return (
         <div>
             {displayBooks}
-            <button onClick={() => addBook(book)}>Add book</button>
+            <button onClick={() => addEditBook(book)}>Add book</button>
         </div>
     );
 };
