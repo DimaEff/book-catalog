@@ -1,12 +1,10 @@
-import {db} from "./firestore";
+import firestoreCollections from "../consts/firestore_collections";
 
-
-const booksCollection = db.collection('books');
 
 export const addBook = (book) => async (dispatch) => {
-    await booksCollection.add({...book});
+    await firestoreCollections.books().add({...book});
 }
 
 export const deleteBook = (bookId) => async (dispatch) => {
-    await booksCollection.doc(bookId).delete();
+    await firestoreCollections.books().doc(bookId).delete();
 }

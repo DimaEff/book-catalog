@@ -1,4 +1,6 @@
-import {db} from "./firestore";
+import Cookies from 'js-cookie';
+import {userIdToken} from "../consts/cookies_consts";
+import firestoreCollections from "../consts/firestore_collections";
 
 
 const LOGIN = 'auth_reducer/LOGIN';
@@ -26,28 +28,45 @@ const authReducer = (state=initialState, action) => {
     }
 }
 
-// const usersCollection = db && db.collection('users');
+export const authUser = () => async (dispatch) => {
+    const userId = Cookies.get(userIdToken);
+
+    if (userId) {
+        const doc = await firestoreCollections.users().doc(userId).get();
+        const user = doc.data();
+
+        user && dispatch(setUser(user));
+    }
+}
 
 export const loginUser = (email, password) => async (dispatch) => {
-    const doc = await db.collection('users')
+    const doc = await firestoreCollections.users()
         .where("email", "==", email)
         .where('password', '==', password)
         .get();
 
-    const user = doc.docs[0].data();
+    const user = doc.docs[0]?.data();
+    const userId = doc.docs[0].id;
 
-    user && dispatch(login(user));
+    if (user) {
+        dispatch(setUser(user));
+        Cookies.set(userIdToken, userId, {expires: 10});
+        console.log(Cookies.get(userIdToken));
+    } else {
+        console.log('Not login');
+    }
 }
 
 export const logoutUser = () => async (dispatch) => {
-    dispatch(logout());
+    dispatch(removeUser());
+    Cookies.remove(userIdToken);
 }
 
 export const register = (newUser) => (dispatch) => {
-    db.collection('users').add({...newUser});
+    firestoreCollections.users().add({...newUser});
 }
 
-const login = (user) => ({type: LOGIN, user});
-const logout = () => ({type: LOGOUT});
+const setUser = (user) => ({type: LOGIN, user});
+const removeUser = () => ({type: LOGOUT});
 
 export default authReducer;

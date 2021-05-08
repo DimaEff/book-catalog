@@ -2,10 +2,10 @@ import React from 'react';
 import {useForm} from "react-hook-form";
 import {connect} from "react-redux";
 
-import {loginUser} from "../../Redux/auth_reducer";
+import {loginUser, logoutUser} from "../../Redux/auth_reducer";
 
 
-const Login = ({loginUser}) => {
+const Login = ({loginUser, logoutUser}) => {
     const {register, handleSubmit} = useForm({
         method: 'onBlur',
     })
@@ -21,12 +21,9 @@ const Login = ({loginUser}) => {
                 <input type="text" {...register('password')}/>
                 <button type={'submit'}>Login</button>
             </form>
+            <button onClick={logoutUser}>Logout</button>
         </div>
     );
 };
 
-const mapStateToProps = (state) => ({
-
-})
-
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(null, {loginUser, logoutUser})(Login);
