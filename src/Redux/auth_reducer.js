@@ -62,8 +62,13 @@ export const logoutUser = () => async (dispatch) => {
     Cookies.remove(userIdToken);
 }
 
-export const register = (newUser) => (dispatch) => {
-    firestoreCollections.users().add({...newUser});
+export const registerUser = (newUser) => async (dispatch) => {
+    const testUser = (await firestoreCollections.users()
+        .where('email', '==', newUser.email)
+        .get())
+        .docs?.[0];
+
+    testUser || firestoreCollections.users().add({...newUser});
 }
 
 const setUser = (user) => ({type: LOGIN, user});
