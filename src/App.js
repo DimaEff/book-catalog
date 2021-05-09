@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import Cookies from 'js-cookie';
 import {connect, useSelector} from "react-redux";
+import {Switch, Route, Link} from 'react-router-dom'
 
 import BooksContainer from "./Components/Books/BooksContainer";
 import UserProfile from "./Components/UserProfile/UserProfile";
@@ -28,14 +29,14 @@ function App({authUser}) {
         <div>
             <button onClick={handleCookie}>Test</button>
             <UserProfile/>
-            <BooksContainer/>
             <hr/>
             <Login />
             <hr/>
             <Registration />
-            <hr/>
-            <AddEditBook />
-            <hr/>
+            <Switch>
+                <Route exact path={'/'} render={() => <BooksContainer/>}/>
+                <Route path={'/add-edit-book/:bookId?'} render={() => <AddEditBook />}/>
+            </Switch>
         </div>
     );
 }

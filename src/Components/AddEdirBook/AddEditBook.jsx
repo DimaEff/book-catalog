@@ -1,14 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
+import {compose} from "redux";
+import {withRouter} from 'react-router-dom';
 
 import {addEditBook} from "../../Redux/books_actions";
 import {useForm} from "react-hook-form";
 
 
-const AddEditBook = ({addEditBook, bookId}) => {
+const AddEditBook = ({addEditBook, ...props}) => {
     const {register, handleSubmit} = useForm({
         mode: "onBlur",
     })
+    const bookId = props.match.params.bookId;
 
     const addEdit = (formData) => {
         addEditBook(formData, bookId)
@@ -25,4 +28,7 @@ const AddEditBook = ({addEditBook, bookId}) => {
     );
 };
 
-export default connect(null, {addEditBook})(AddEditBook);
+export default compose(
+    withRouter,
+    connect(null, {addEditBook}),
+)(AddEditBook);

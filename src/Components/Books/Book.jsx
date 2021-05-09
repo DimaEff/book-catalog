@@ -1,5 +1,5 @@
 import React from 'react';
-import AddEditBook from "../AddEdirBook/AddEditBook";
+import {Link} from "react-router-dom";
 
 const Book = (props) => {
     return (
@@ -11,7 +11,7 @@ const Book = (props) => {
             <div>
                 <button onClick={() => props.deleteBook(props.id)}>Delete book</button>
             </div>
-            <AddEditBook bookId={props.id}/>
+            <Link to={`/add-edit-book/${props.id}`}>Edit this book</Link>
             <hr/>
         </div>
     );

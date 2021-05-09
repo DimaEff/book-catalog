@@ -1,5 +1,6 @@
 import React from 'react';
 import Book from "./Book";
+import {Link, Switch} from "react-router-dom";
 
 const Books = ({books, addEditBook, deleteBook}) => {
     const displayBooks = books &&
@@ -16,6 +17,7 @@ const Books = ({books, addEditBook, deleteBook}) => {
         <div>
             {displayBooks}
             <button onClick={() => addEditBook(book)}>Add book</button>
+            <Link to={'/add-edit-book'}>Add new book</Link>
         </div>
     );
 };

@@ -8,7 +8,7 @@ export const addEditBook = (book, bookId=undefined) => async (dispatch) => {
         .docs?.[0];
 
      testBook || firestoreCollections.books().doc(bookId).set({...book});
-}
+}   
 
 export const deleteBook = (bookId) =>  (dispatch) => {
      firestoreCollections.books().doc(bookId).delete();
