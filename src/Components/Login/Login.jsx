@@ -1,30 +1,44 @@
 import React from 'react';
-import {useForm} from "react-hook-form";
 import {connect} from "react-redux";
+import * as yup from 'yup';
 
-import {loginUser, logoutUser} from "../../Redux/auth_reducer";
+import {loginUser} from "../../Redux/auth_reducer";
+import DialogForm from "../Common/DialogForm/DialogForm";
 
 
-const Login = ({loginUser, logoutUser}) => {
-    const {register, handleSubmit} = useForm({
-        method: 'onBlur',
+const Login = ({loginUser}) => {
+    // const test = () => {
+    //     alert('successful')
+    // }
+
+    const schema = yup.object().shape({
+        email: yup
+            .string()
+            .email('Email should have correct format.')
+            .required('Email is a required field.'),
+
+        password: yup
+            .string()
+            .min(6, 'The minimum password length is 6 symbols')
+            .required('Password is a required field.')
     })
 
-    const login = (formData) => {
-        loginUser(formData.email, formData.password);
-    }
 
     return (
-        <div>
-            <h3>Login</h3>
-            <form onSubmit={handleSubmit(login)}>
-                <input type="text" {...register('email')}/>
-                <input type="text" {...register('password')}/>
-                <button type={'submit'}>Login</button>
-            </form>
-            <button onClick={logoutUser}>Logout</button>
-        </div>
-    );
-};
+        <DialogForm onSubmit={loginUser} yupSchema={schema}>
+            {{
+                fields: [
+                    {fieldName: 'email'},
+                    {fieldName: 'password'},
+                ],
+                buttons: [
+                    {text: 'Log in', onClick: 'submit'},
+                    // {text: 'Test', onClick: test},
+                    {text: 'Close', onClick: 'close'},
+                ]
+            }}
+        </DialogForm>
+    )
+}
 
-export default connect(null, {loginUser, logoutUser})(Login);
+export default connect(null, {loginUser})(Login);

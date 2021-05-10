@@ -1,22 +1,15 @@
 import React from 'react';
-import {compose} from "redux";
-import {connect} from "react-redux";
+import {Avatar, Box, Typography} from "@material-ui/core";
 
 
 const UserProfile = ({user}) => {
+    if (!user) return <div>not user</div>
+
     return (
-        <div>
-            <h3>
-                {user ? <div>{user.username}</div>: <div>Not user</div>}
-            </h3>
-        </div>
+        <Box>
+            <Avatar alt={user.username} src={user.avatarURL}/>
+        </Box>
     );
 };
 
-const mapStateToProps = (state) => ({
-    user: state.auth.user,
-})
-
-export default compose(
-    connect(mapStateToProps, {}),
-)(UserProfile);
+export default UserProfile;

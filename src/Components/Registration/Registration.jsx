@@ -1,31 +1,56 @@
 import React from 'react';
 import {connect} from "react-redux";
+import * as yup from "yup";
 
-import {registerUser} from "../../Redux/auth_reducer";
-import {useForm} from "react-hook-form";
+import {registerUser, loginUser} from "../../Redux/auth_reducer";
+import DialogForm from "../Common/DialogForm/DialogForm";
 
 
-const Registration = ({registerUser}) => {
-    const {register, handleSubmit} = useForm({
-        mode: 'onBlur',
+const Registration = ({registerUser, loginUser}) => {
+    const schema = yup.object().shape({
+        email: yup
+            .string()
+            .email('Email should have correct format.')
+            .required('Email is a required field.'),
+
+        password: yup
+            .string()
+            .min(6, 'The min password length is 6 symbols')
+            .max(15, 'The max password length is 15 symbols')
+            .required('Password is a required field.'),
+
+        confirmPassword: yup
+            .string()
+            .required('Password is a required field.')
+            .oneOf([yup.ref("password"), null], "Passwords must match"),
+
+        username: yup
+            .string()
+            .required('Username is a required field.')
     })
 
-    const registerNewUser = (formData) => {
-        registerUser(formData);
+    const registerAndLogin = async (formData) => {
+        await registerUser({...formData});
+        loginUser({...formData});
     }
 
     return (
-        <div>
-            <h3>Registration</h3>
-            <form onSubmit={handleSubmit(registerNewUser)}>
-                <input type="text" {...register('email')}/>
-                <input type="text" {...register('password')}/>
-                <input type="text" {...register('username')}/>
-                <input type="text" {...register('avatarURL')}/>
-                <button type={'submit'}>Register</button>
-            </form>
-        </div>
+        <DialogForm onSubmit={registerAndLogin} yupSchema={schema}>
+            {{
+                fields: [
+                    {fieldName: 'email'},
+                    {fieldName: 'password'},
+                    {fieldName: 'confirmPassword'},
+                    {fieldName: 'username'},
+                    {fieldName: 'avatarURL'},
+                ],
+                buttons: [
+                    {text: 'Sign up', onClick: 'submit'},
+                    {text: 'Close', onClick: 'close'},
+                ]
+            }}
+        </DialogForm>
     );
 };
 
-export default connect(null, {registerUser})(Registration);
+export default connect(null, {registerUser, loginUser})(Registration);

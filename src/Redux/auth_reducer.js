@@ -39,7 +39,7 @@ export const authUser = () => async (dispatch) => {
     }
 }
 
-export const loginUser = (email, password) => async (dispatch) => {
+export const loginUser = ({email, password}) => async (dispatch) => {
     const doc = await firestoreCollections.users()
         .where("email", "==", email)
         .where('password', '==', password)
