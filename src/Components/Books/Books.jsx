@@ -1,24 +1,17 @@
 import React from 'react';
 import Book from "./Book";
-import {Link, Switch} from "react-router-dom";
+import {Grid} from "@material-ui/core";
 
-const Books = ({books, addEditBook, deleteBook}) => {
+
+const Books = ({books, user, deleteBook}) => {
+    const showActions = !!user;
     const displayBooks = books &&
-        books.map(book => <Book key={book.id} deleteBook={deleteBook} {...book}/>);
-
-    const book = {
-        authors: ['123'],
-        isbn: '1235324',
-        publicDate: 2000,
-        title: 'Alpha',
-    };
+        books.map(book => <Book key={book.id} deleteBook={deleteBook} showActions={showActions} {...book}/>);
 
     return (
-        <div>
+        <Grid container spacing={4}>
             {displayBooks}
-            <button onClick={() => addEditBook(book)}>Add book</button>
-            <Link to={'/add-edit-book'}>Add new book</Link>
-        </div>
+        </Grid>
     );
 };
 

@@ -4,9 +4,9 @@ import {Switch, Route} from 'react-router-dom'
 
 import BooksContainer from "./Components/Books/BooksContainer";
 import {authUser} from "./Redux/auth_reducer";
-import AddEditBook from "./Components/AddEdirBook/AddEditBook";
+import AddEditBook from "./Components/AddEditBook/AddEditBook";
 import Header from "./Components/Header/Header";
-import {Box} from "@material-ui/core";
+import {Box, Container} from "@material-ui/core";
 
 
 function App({authUser}) {
@@ -17,13 +17,13 @@ function App({authUser}) {
     return (
         <div>
             <Header />
-            <Box mt={9}>
-                {/*<Login handleLogin={handleLogin}/>*/}
-                <hr/>
-                <Switch>
-                    <Route exact path={'/'} render={() => <BooksContainer/>}/>
-                    <Route path={'/add-edit-book/:bookId?'} render={() => <AddEditBook />}/>
-                </Switch>
+            <Box pt={12}>
+                <Container maxWidth={'md'}>
+                    <Switch>
+                        <Route exact path={'/'} render={() => <BooksContainer/>}/>
+                        <Route path={'/add-edit-book/:bookId?'} render={() => <AddEditBook />}/>
+                    </Switch>
+                </Container>
             </Box>
         </div>
     );
