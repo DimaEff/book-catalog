@@ -39,8 +39,10 @@ const DialogForm = ({children, onSubmit, yupSchema, dialogId}) => {
                 <DialogTitle id={dialogId || 'dialog'}>Login</DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleSubmit(submit)} id={'dialogForm'}>
-                        {children.fields.map(({fieldName}) => {
+                        {children.fields.map(({fieldName, type}) => {
                             return <MyInput
+                                key={fieldName}
+                                type={type || 'text'}
                                 label={fieldName}
                                 error={!!errors[fieldName]}
                                 helperText={errors[fieldName]?.message}
@@ -52,14 +54,14 @@ const DialogForm = ({children, onSubmit, yupSchema, dialogId}) => {
                 <DialogActions>
                     {children.buttons.map(button => {
                         if (button.onClick === 'submit') {
-                            return <MyButton type={'submit'} form={'dialogForm'}>{button.text || 'submit'}</MyButton>
+                            return <MyButton key={button.text} type={'submit'} form={'dialogForm'}>{button.text || 'submit'}</MyButton>
                         } else if (button.onClick === 'close') {
-                            return <MyButton variant={'contained'} color={'primary'} onClick={() => handleOpen(false)}>
+                            return <MyButton key={button.text} variant={'contained'} color={'primary'} onClick={() => handleOpen(false)}>
                                 {button.text || 'close'}
                             </MyButton>
                         }
 
-                        return <MyButton onClick={button.onClick}>{button.text}</MyButton>
+                        return <MyButton key={button.text} onClick={button.onClick}>{button.text}</MyButton>
                     })}
                 </DialogActions>
             </Dialog>

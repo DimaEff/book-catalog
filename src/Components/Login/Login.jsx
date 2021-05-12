@@ -29,7 +29,7 @@ const Login = ({loginUser}) => {
             {{
                 fields: [
                     {fieldName: 'email'},
-                    {fieldName: 'password'},
+                    {fieldName: 'password', type: 'password'},
                 ],
                 buttons: [
                     {text: 'Log in', onClick: 'submit'},

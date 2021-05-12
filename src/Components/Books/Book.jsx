@@ -49,8 +49,7 @@ const Book = (props) => {
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Box className={styles.root} onMouseEnter={() => setShowBookInfo(true)} onMouseLeave={() => setShowBookInfo(false)}>
-                <img src={props.coverURL} alt={props.title}
-                     className={styles.bookCover}/>
+                <img src={props.coverURL} alt={props.title} className={styles.bookCover}/>
                 {showBookInfo && <div className={styles.cardAction}>
                     <Typography variant={'h5'}>{props.title}</Typography>
                     <Typography variant={'h6'}>{props.authors}</Typography>

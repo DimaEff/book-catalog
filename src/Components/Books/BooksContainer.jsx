@@ -16,6 +16,11 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    firestoreConnect(() => ['books']),
+    firestoreConnect(() => [
+        {
+            collection: 'books',
+            orderBy: ['title', 'asc'],
+        }
+    ]),
     connect(mapStateToProps, {deleteBook}),
 )(BooksContainer);

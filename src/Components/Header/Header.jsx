@@ -29,8 +29,8 @@ const Header = ({user, logoutUser}) => {
     const styles = useStyles();
 
     return (
-        <AppBar fixed={true}>
-            <Container fixed={true}>
+        <AppBar fixed>
+            <Container fixed>
                 <Toolbar>
                     <Box flexGrow={1} className={styles.leftSide}>
                         <Link to={'/'} className={styles.label}>
@@ -38,9 +38,11 @@ const Header = ({user, logoutUser}) => {
                                 book
                             </Typography>
                         </Link>
-                        <IconButton onClick={() => history.push('/add-edit-book')}>
-                            <AddSharpIcon fontSize={'large'}/>
-                        </IconButton>
+                        {user &&
+                            <IconButton onClick={() => history.push('/add-edit-book')}>
+                                <AddSharpIcon fontSize={'large'}/>
+                            </IconButton>
+                        }
                     </Box>
                     {user ?
                         (<>
